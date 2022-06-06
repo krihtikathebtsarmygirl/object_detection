@@ -1,0 +1,45 @@
+body
+{
+background-position: center;
+background-size: cover;
+}
+
+.heading
+{
+font-size: 40px;
+margin-top : 20px;
+color: white;
+font-family: 'Dancing Script', cursive;
+}
+
+#status
+{
+font-size: 18px;
+}
+
+canvas
+{
+box-shadow: 10px 10px 10px grey;
+border-radius: 10px;
+  margin-top:50px;
+}
+
+.back_btn {
+  
+ right : 0 ;
+ position: fixed;
+ background-color: rgb(199, 139, 255);
+ color: white;
+ font-size: medium;
+
+
+}
+
+.abc{
+  background-color: white;
+  width: 500; 
+  margin-top : 5px;
+  border-radius: 20px;
+  font-size: 25px;
+  color: rgb(217, 0, 255);
+}

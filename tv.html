@@ -1,0 +1,84 @@
+<html>
+
+<head>
+
+    <title>Object Detection</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body background="background.jpg">
+    <center>
+        <h1 class="btn btn-info heading">Object Detection</h1> 
+        <a href="index.html" class="btn back_btn">Back</a>
+        <br><br><br><br>
+        <h3 id="status" class="btn btn-danger"></h3> <br>
+        <h3 class="btn btn-success" style="font-size:15px;"> There are 6 big objects in the image from which cocossd
+            model has detected 2 objects. </h3>
+    </center>
+    <script>
+        objectDetector= "";
+
+img = "";
+objects = [];
+status = "";
+
+function preload(){
+  img = loadImage("tv.png")
+}
+
+
+
+
+function setup() {
+  canvas = createCanvas(380, 380);
+  canvas.position(550,250);
+  objectDetector = ml5.objectDetector('cocossd', modelLoaded);
+  document.getElementById("status").innerHTML = "Status : Detecting Objects";
+}
+
+function modelLoaded() {
+  console.log("Model Loaded!")
+  status = true;
+ 
+}
+
+function gotResult(error, results) {
+  if (error) {
+    console.log(error);
+  }
+  console.log(results);
+  objects = results;
+}
+
+function draw(){
+    image(img,0,0,380,380)
+   r = random(255)
+   g = random(255)
+   b = random(255)
+   objectDetector.detect(img, gotResult);
+    if(status != ""){
+        for( var i = 0 ; i < objects.length;i++){
+            document.getElementById("status").innerHTML = "Status : Detected Objects";
+           
+            fill (r,g,b)
+            percent = floor(objects[i].confidence*100)
+            text (objects[i].label + " " + percent + "%",objects[i].x + 15,objects[i].y + 15)
+            noFill()
+            stroke(r,g,b)
+            rect (objects[i].x,objects[i].y,objects[i].width,objects[i].height)    
+        }
+    }
+}
+    </script>
+</body>
+
+</html>
